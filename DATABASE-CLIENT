@@ -1,0 +1,11 @@
+mysql -u root
+CREATE DATABASE plumin;
+USE plumin;
+SHOW DATABASES;
+CREATE TABLE Cliente (IdCliente INT(6),Nombre VARCHAR(30),Apellido1 VARCHAR(30),Apellido2 VARCHAR(30),RFC VARCHAR(20),Primary key (IdCliente));
+CREATE TABLE Proveedor (IdProveedor INT(6), Nombre VARCHAR(30),Calle VARCHAR(30),Numero INT(5),Colonia VARCHAR(30),CodigoPostal INT(5),RFC VARCHAR(20),Primary key (IdProveedor));
+CREATE TABLE Inventario (IdProducto INT(6),Nombre VARCHAR(30),Descripcion VARCHAR(50),PrecioVenta INT(7),Stock INT(8),Primary key (IdProducto));
+CREATE TABLE Venta (IdVenta INT(6),Fecha INT(8), IdCliente INT(6),Primary key (IdVenta));
+CREATE TABLE Compra (IdCompra INT(6),IdProveedor INT (6),Primary key (IdCompra));
+CREATE TABLE CompraInventario (IdCompra INT(6), IdProducto INT(6),Cantidad INT (7),PrecioUnitario INT(10),Primary key (IdCompra));
+CREATE TABLE VentaInventario (IdVenta INT(6),IdProducto INT(6),Cantidad INT(7),PrecioVentaUnitario INT(10));
