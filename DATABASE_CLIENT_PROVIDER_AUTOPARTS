@@ -3,4 +3,8 @@ CREATE DATABASE dbProveedores;
 USE dbProveedores;
 SHOW DATABASES;
 
-CREATE TABLE Proveedor (id_proveedor INT(6), Nombre VARCHAR(30),ApellidoPaterno VARCHAR(30),ApellidoMaterno VARCHAR(30),Direccion VARCHAR(30),Telefono INT(8),email VARCHAR(20));
+CREATE TABLE Proveedores (id_proveedor INT(6), Nombre VARCHAR(30),ApellidoPaterno VARCHAR(30),ApellidoMaterno VARCHAR(30),Direccion VARCHAR(30),Telefono INT(8),email VARCHAR(20));
+CREATE TABLE DetalleCompraProveedores (id_proveedor INT(6),id_autoparte INT(6),FechaDeCompra VARCHAR(30),FechaDeEntrega VARCHAR(30),Primary key (id_proveedor));
+
+
+
