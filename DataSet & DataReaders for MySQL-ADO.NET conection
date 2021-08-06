@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+using MySql.Data;
+using MySql.Data.MySqlClient;
+
+namespace EjercicioMuestraDotNetIII
+{
+    public partial class Formulario : Form
+    {
+        //DataAdapter Declaration
+        MySqlDataAdapter FordMotorsCompany;
+        DataSet Query;  //DataSet object creation but right now is empty
+
+        public Formulario()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            //Connection string
+            string connStr = "server=localhost;user=root;database=dbProveedores;port=3000;password=Mexico";
+            MySqlConnection DBConector = new MySqlConnection(connStr);
+            try
+            {
+                label2.Text = "Connecting to MySQL...";
+
+                string sql = "SELECT id_autoparte, Nombre, Descripcion, Unidad de Medida, PrecioUnitario FROM AutopartesE WHERE Proveedores='Boccar'";
+                FordMotorsCompany = new MySqlDataAdapter (sql, DBConector); //Instantiating a MySqlDataAdapter Object
+                MySqlCommandBuilder cb = new MySqlCommandBuilder(FordMotorsCompany); //MySqlDataAdapter is providing the data to work with.
+               //Let's fill the dataset because to make something useful we have to load it in the dataSet
+                Query = new DataSet(); //DataSel instantiation
+                FordMotorsCompany.Fill(Query, "Autopartes Electricas"); //The fill method is a MySqlDataAdapter method to stablished a conection
+                dataGridView1.DataSource = Query; // and retrieve the desired data and then populate the DataSet when the fill method is called
+                dataGridView1.DataMember = "Autopartes Electricas";
+            }
+            catch (Exception ex)
+            {
+                label2.Text = ex.ToString();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FordMotorsCompany.Update(Query, "Autopartes Electricas"); //Update dataSet
+            label2.Text = "MySQL Database Updated!";
+        }
+
+    }
+}
