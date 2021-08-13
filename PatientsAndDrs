@@ -1,6 +1,6 @@
-CREATE DATABASE mydb;
-USE `mydb` ;
-CREATE TABLE IF NOT EXISTS `mydb`.`tbPacientes` (
+CREATE DATABASE DBU3MALA;
+USE `DBU3MALA` ;
+CREATE TABLE IF NOT EXISTS `DBU3MALA`.`tbPacientes` (
   `idPacientes` INT NOT NULL,
   `NombreCompleto` VARCHAR(80) NULL,
   `Direccion` VARCHAR(100) NULL,
@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`tbPacientes` (
   PRIMARY KEY (`idPacientes`))
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`tbMedicos` (
+CREATE TABLE IF NOT EXISTS `DBU3MALA`.`tbMedicos` (
   `idMedico` INT NOT NULL,
   `NombreCompleto` VARCHAR(20) NULL,
   `Cedula` VARCHAR(15) NULL,
@@ -21,19 +21,19 @@ CREATE TABLE IF NOT EXISTS `mydb`.`tbMedicos` (
   PRIMARY KEY (`idMedico`))
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`tbPacientesMedico` (
+CREATE TABLE IF NOT EXISTS `DBU3MALA`.`tbPacientesMedico` (
   `tbPacientes_idPacientes` INT NOT NULL,
   `tbMedicos_idMedico` INT NOT NULL,
   PRIMARY KEY (`tbPacientes_idPacientes`, `tbMedicos_idMedico`),
   INDEX `fk_tbPacientesMedico_tbMedicos1_idx` (`tbMedicos_idMedico` ASC) VISIBLE,
   CONSTRAINT `fk_tbPacientesMedico_tbPacientes`
     FOREIGN KEY (`tbPacientes_idPacientes`)
-    REFERENCES `mydb`.`tbPacientes` (`idPacientes`)
+    REFERENCES `DBU3MALA`.`tbPacientes` (`idPacientes`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_tbPacientesMedico_tbMedicos1`
     FOREIGN KEY (`tbMedicos_idMedico`)
-    REFERENCES `mydb`.`tbMedicos` (`idMedico`)
+    REFERENCES `DBU3MALA`.`tbMedicos` (`idMedico`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
