@@ -1,0 +1,46 @@
+CREATE DATABASE mydb;
+USE `mydb` ;
+CREATE TABLE IF NOT EXISTS `mydb`.`tbPacientes` (
+  `idPacientes` INT NOT NULL,
+  `NombreCompleto` VARCHAR(80) NULL,
+  `Direccion` VARCHAR(100) NULL,
+  `TelefonoFijo` VARCHAR(10) NULL,
+  `Celular` VARCHAR(10) NULL,
+  `Edad` INT NULL,
+  `Sexo` CHAR(1) NULL,
+  `Email` VARCHAR(50) NULL,
+  `EdoCivil` VARCHAR(50) NULL,
+  PRIMARY KEY (`idPacientes`))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`tbMedicos` (
+  `idMedico` INT NOT NULL,
+  `NombreCompleto` VARCHAR(20) NULL,
+  `Cedula` VARCHAR(15) NULL,
+  `Especialidad` INT NULL,
+  PRIMARY KEY (`idMedico`))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `mydb`.`tbPacientesMedico` (
+  `tbPacientes_idPacientes` INT NOT NULL,
+  `tbMedicos_idMedico` INT NOT NULL,
+  PRIMARY KEY (`tbPacientes_idPacientes`, `tbMedicos_idMedico`),
+  INDEX `fk_tbPacientesMedico_tbMedicos1_idx` (`tbMedicos_idMedico` ASC) VISIBLE,
+  CONSTRAINT `fk_tbPacientesMedico_tbPacientes`
+    FOREIGN KEY (`tbPacientes_idPacientes`)
+    REFERENCES `mydb`.`tbPacientes` (`idPacientes`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tbPacientesMedico_tbMedicos1`
+    FOREIGN KEY (`tbMedicos_idMedico`)
+    REFERENCES `mydb`.`tbMedicos` (`idMedico`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+
+
+
+
+
