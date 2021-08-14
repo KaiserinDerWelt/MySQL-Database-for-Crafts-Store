@@ -1,6 +1,10 @@
-CREATE DATABASE DBU3MALA;
-USE `DBU3MALA` ;
-CREATE TABLE IF NOT EXISTS `DBU3MALA`.`tbPacientes` (
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+CREATE SCHEMA IF NOT EXISTS `dbu3mala` DEFAULT CHARACTER SET utf8 ;
+USE `dbu3mala` ;
+
+CREATE TABLE IF NOT EXISTS `dbu3mala`.`tbPacientes` (
   `idPacientes` INT NOT NULL,
   `NombreCompleto` VARCHAR(80) NULL,
   `Direccion` VARCHAR(100) NULL,
@@ -13,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `DBU3MALA`.`tbPacientes` (
   PRIMARY KEY (`idPacientes`))
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `DBU3MALA`.`tbMedicos` (
+CREATE TABLE IF NOT EXISTS `dbu3mala`.`tbMedicos` (
   `idMedico` INT NOT NULL,
   `NombreCompleto` VARCHAR(20) NULL,
   `Cedula` VARCHAR(15) NULL,
@@ -21,22 +25,27 @@ CREATE TABLE IF NOT EXISTS `DBU3MALA`.`tbMedicos` (
   PRIMARY KEY (`idMedico`))
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `DBU3MALA`.`tbPacientesMedico` (
+CREATE TABLE IF NOT EXISTS `dbu3mala`.`tbPacientesMedico` (
   `tbPacientes_idPacientes` INT NOT NULL,
   `tbMedicos_idMedico` INT NOT NULL,
   PRIMARY KEY (`tbPacientes_idPacientes`, `tbMedicos_idMedico`),
   INDEX `fk_tbPacientesMedico_tbMedicos1_idx` (`tbMedicos_idMedico` ASC) VISIBLE,
   CONSTRAINT `fk_tbPacientesMedico_tbPacientes`
     FOREIGN KEY (`tbPacientes_idPacientes`)
-    REFERENCES `DBU3MALA`.`tbPacientes` (`idPacientes`)
+    REFERENCES `dbu3mala`.`tbPacientes` (`idPacientes`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_tbPacientesMedico_tbMedicos1`
     FOREIGN KEY (`tbMedicos_idMedico`)
-    REFERENCES `DBU3MALA`.`tbMedicos` (`idMedico`)
+    REFERENCES `dbu3mala`.`tbMedicos` (`idMedico`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 
 
